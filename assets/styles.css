@@ -170,3 +170,10 @@
     width: 58.333333%;
   }
 }
+
+.rounded{
+  border:5px solid;
+  border-radius:50%;
+  width:106px;
+  height:93px;
+  }
