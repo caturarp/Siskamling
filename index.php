@@ -1,3 +1,37 @@
+<?php
+include ('function/config.php');
+// include ('function/proseslogin.php');
+session_start();
+if (!isset($_SESSION['status']))
+ {
+	header("location: function/proseslogin.php");
+	exit;
+}
+$npm =$_SESSION['npm'];
+$day = date("l");
+if ($day = "Monday"){
+    $hari = "SENIN";
+}
+elseif ($day = "Tuesday") {
+    $hari = "SELASA";
+}
+elseif ($day = "Wednesday") {
+    $hari = "RABU";
+}
+elseif ($day = "Thursday") {
+    $hari = "KAMIS";
+}
+elseif ($day = "Friday") {
+    $hari = "JUMAT";
+}
+elseif ($day = "Saturday") {
+    $hari = "Sabtu";
+}
+else {
+    $hari = "Minggu";
+};
+var_dump($day);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +71,12 @@
                     require_once "function/config.php";
                     
                     // Attempt select query execution
-                    $sql = "SELECT classes.waktu_class, classes.nama_class, classes.presensi, lecturers.nama_lecturer FROM classes INNER JOIN lecturers ON classes.id_lecturer=lecturers.id_lecturer";
+                    // $sql = "SELECT classes.waktu_class, classes.nama_class, classes.presensi, lecturers.nama_lecturer FROM classes INNER JOIN lecturers ON classes.id_lecturer=lecturers.id_lecturer";
+                    $sql = "SELECT classes.id_class, classes.waktu_class, classes.nama_class, classes.presensi, lecturers.nama_lecturer 
+                    FROM classes,courses,students,lecturers 
+                    WHERE courses.id_class=classes.id_class 
+                    AND classes.id_lecturer=lecturers.id_lecturer AND students.npm=courses.npm AND courses.npm = '$npm' AND classes.waktu_class='$hari'";
+                    echo var_dump($npm);
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo '<table class="table table-bordered table-striped">';
@@ -46,6 +85,7 @@
                                         // echo "<th>#</th>";
                                         echo "<th>Waktu</th>";
                                         echo "<th>Mata Kuliah</th>";
+                                        echo "<th>Kode Mata kuliah Kuliah</th>";
                                         echo "<th>Dosen Pengampu</th>";
                                         echo "<th>Presensi</th>";
                                     echo "</tr>";
@@ -55,26 +95,48 @@
                                     echo "<tr>";
                                         echo "<td>" . $row['waktu_class'] . "</td>";
                                         echo "<td>" . $row['nama_class'] . "</td>";
+                                        echo "<td>" . $row['id_class'] . "</td>";
                                         echo "<td>" . $row['nama_lecturer'] . "</td>";
                                         echo "<td>" . $row['presensi'] . "</td>";
                                         echo "<td>";
                                             // echo '<a href="read.php?id='. $row['id_lecturer'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                            echo '<a href="update.php?id='. $row['id_lecturer'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="function/update.php?id_class='. $row['id_class'] .'" class="mr-3" title="Hadiri Kelas" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                             // echo '<a href="delete.php?id='. $row['id_lecturer'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
+                                // $presensi=$row['presensi'];
+                                $id_class=$row['id_class'];
                                 }
+                                // echo var_dump ($presensi);
+                                echo var_dump ($id_class);
+                                // $_SESSION['presensi'] = $presensi;
+                                $_SESSION['id_class'] = $id_class;
+
                                 echo "</tbody>";                            
                             echo "</table>";
                             // Free result set
                             mysqli_free_result($result);
-                        } else{
+                        } 
+                        else{
                             echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
                         }
-                    } else{
+                        // while ($row = $result->fetch_assoc()){
+                        //     // $id_pendaftar = $row['id_pendaftar'];
+                        //     $presensi = $row['presensi'];
+                        //     $id_class = $row['id_class'];
+                        //     // $semester = $row['semester'];
+                        //     // $sks = $row['sks'];
+                        //     // $tahun_masuk = $row['tahun_masuk'];
+                        //     // $npm = $row['npm'];
+                        // }
+                        // $_SESSION['presensi'] = $presensi;
+                        // $_SESSION['id_class'] = $id_class;
+                    } 
+                    else{
                         echo "Oops! Something went wrong. Please try again later.";
                     }
- 
+                    
+                    // $_SESSION['classes.presensi'] = $presensi;
                     // Close connection
                     mysqli_close($link);
                     ?>

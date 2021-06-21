@@ -15,8 +15,10 @@ if($ceklogin>0){
 		$semester = $row['semester'];
 		$sks = $row['sks'];
 		$tahun_masuk = $row['tahun_masuk'];
+		$npm = $row['npm'];
 	}
 	$_SESSION['id_major'] = $id_major;
+	$_SESSION['npm'] = $npm;
 	$_SESSION['id_lecturer'] = $id_lecturer;
 	$_SESSION['semester'] = $semester;
 	$_SESSION['tahun_masuk'] = $tahun_masuk;
