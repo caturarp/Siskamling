@@ -1,31 +1,54 @@
-<?php
-error_reporting(0);
-ob_start();
-session_start();
-date_default_timezone_set("Asia/Jakarta");
-include"config.php";
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-$login=mysql_query("select * from students where npm='$_POST[npm]' and password='$_POST[npm]'");
-$rowcount=mysql_num_rows($login);
-$r=mysql_fetch_array($login);
-if($rowcount > 0) {
-	
-	$_SESSION['npm']=$_POST['npm'];
-	$_SESSION['password']=$_POST['password'];
-		
-		
-	echo"<script>setTimeout(function(){document.location='home.php'},5000);</script>";
-	echo"<br><br><br><br><h3 align=center> LOADING SEBAGAI ".strtoupper($_POST[npm])." </h3>";
-	echo"<center><img src='loading.gif'></center>";
-	
-	// sisipkan jika di perlukan
-	
-	
-	}
-	else {
-				
-		echo"<script>alert('Anda gagal masuk');window.location.href='index.php';</script>";
-	}
-ob_end_flush();	
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="login.css">
 
-?>
+    <title>LOGIN USER</title>
+  </head>
+  <body>
+    
+    <div class="container">
+      <h4 class="text-center">Login Untuk Mengisi Formulir Pendaftaran</h4>
+      <hr>   
+      <form method="post" action="proseslogin.php">
+      <div class="form-group">
+        <label>Username</label>
+        <div class="input-group">
+          <div class="group-input-prepend">
+          </div>
+        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Masukkan Password Anda Anda" required>
+      </div>
+      <br>
+      
+      <button type="submit" class="btn btn-primary">LOGIN</button>
+      <button onclick="location.href ='daftaruser.php';"  class="btn btn-success">DAFTAR</button>
+          
+      </form>
+      
+
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
