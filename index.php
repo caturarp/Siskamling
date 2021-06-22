@@ -7,6 +7,10 @@ if (!isset($_SESSION['status']))
 	header("location: function/proseslogin.php");
 	exit;
 }
+// getting var value and redefine first name
+$nama =$_SESSION['nama'];
+$fnama = strtok($nama, " ");
+$_SESSION['$fnama'] =$fnama;
 
 // getting var npm from session
 $npm =$_SESSION['npm'];
@@ -64,8 +68,8 @@ else {
                   </a>
                 <div class="navbar-nav">
                   <a class="nav-link active mx-4"  aria-current="page" href="homePage.html">Beranda</a>
-                  <a class="nav-link mx-2" href="#">Kelas</a>
-                  <a class="nav-link mx-3" href="transkrip.html">Transkrip</a>
+                  <a class="nav-link mx-2" href="course.php">Kelas</a>
+                  <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
                   <a href="lapor.html">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
                   </a>
@@ -74,13 +78,14 @@ else {
               </div>
               <div class="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
+                <p class="mt-3">Halo, <?php echo $fnama ?></p>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="#">Profil</a></li>
-                      <li><a class="dropdown-item" href="#">keluar</a></li>
+                      <li><a class="dropdown-item" href="function/logout.php">keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
@@ -137,13 +142,7 @@ else {
                                             echo '<a href="function/update.php?id_class='. $row['id_class'] .'" class="btn btn-primary mr-3" title="Hadiri Kelas" style ="background-color:#36A5AE" data-toggle="tooltip">Hadiri Kelas<span class="fa fa-pencil"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
-                                // $id_class=$row['id_class'];
                                 }
-                                // checking out var id_class
-                                // echo var_dump ($id_class);
-                                // passing data id_class to session
-                                // $_SESSION['id_class'] = $id_class;
-
                                 echo "</tbody>";                            
                             echo "</table>";
                             // Free result set

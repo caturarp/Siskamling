@@ -1,3 +1,18 @@
+<?php
+include ('function/config.php');
+// include ('function/proseslogin.php');
+session_start();
+if (!isset($_SESSION['status']))
+ {
+	header("location: function/proseslogin.php");
+	exit;
+}
+$npm =$_SESSION['npm'];
+$fnama = $_SESSION['$fnama'];
+$nama = $_SESSION['nama'];
+$alamat = $_SESSION['alamat'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +39,9 @@
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
-                  <a class="nav-link active mx-4" aria-current="page" href="#">Beranda</a>
-                  <a class="nav-link mx-2" href="#">Kelas</a>
-                  <a class="nav-link mx-3" href="#">Transkrip</a>
+                  <a class="nav-link mx-4" href="index.php">Beranda</a>
+                  <a class="nav-link mx-2" href="course.php">Kelas</a>
+                  <a class="nav-link active mx-3" aria-current="page" href="#">Transkrip</a>
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
                   
                 </div>
@@ -34,6 +49,7 @@
               </div>
               <div class="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
+                <p class="mt-3">Halo, <?php echo $fnama ?></p>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="assets/iconProfile.svg" alt="">
@@ -66,16 +82,38 @@
 
               <div class="col-sm-5">
                <p style="font-size: x-large; font-weight: bold;">Transkrip Sementara</p>
-               <p> Npm : 19082010052 </p>
-               <p> Nama : Asri Kinanti Febriany</p>
-               <p> Alamat : Gayungan</p>
+                
+              <!-- <p> Npm : echo$npm </p>
+              <p> Nama : Asri Kinanti Febriany</p>
+              <p> Alamat : Gayungan</p>  -->
+              <?php
+
+              $npm =$_SESSION['npm'];
+              $fnama = $_SESSION['$fnama'];
+              $nama = $_SESSION['nama'];
+              $alamat = $_SESSION['alamat'];
+
+              echo "NPM : $npm <br>";
+              echo "Nama : $nama <br>"; 
+              echo "Alamat : $alamat";
+              // echo "Nama : ;
+              // echo "Alamat : "+$alamat;
+
+              // $html =
+              //   '<html><body>'.
+              //   '<br>NPM: '.$npm.
+              //   '<br>NAMA: '.$nama.
+              //   '<br>ALAMAT: '.$alamat.
+              //   '</body></html>';
+              ?>
+               
               </div>
               </div>
             </div>
               
             <div class="col-sm-5 align-self-end pb-3">
               <div class="d-flex justify-content-end">  
-              <button type="button" class="btn btn-success">Success</button> 
+              <button type="button" class="btn btn-success">Unduh Transkrip</button> 
               </div> 
            </div>
         </div>
@@ -88,7 +126,7 @@
               <thead class="table-dark">
                  <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Kode</th>
+                    <th scope="col">Kode Mata Kuliah</th>
                     <th scope="col">Mata Kuliah</th>
                     <th scope="col">SKS</th>
                     <th scope="col">Nilai</th>
@@ -96,7 +134,34 @@
                     <th scope="col">N x K</th>
                  </tr>
              </thead>
-             <tbody>
+             <?php
+              $no = 1;
+
+              // query attempt
+              $sql ="SELECT students.npm, classes.waktu_class, classes.nama_class, classes.presensi, classes.sks_class, lecturers.nama_lecturer, classes.id_class 
+              FROM classes,courses,students,lecturers 
+              WHERE courses.id_class=classes.id_class 
+              AND classes.id_lecturer=lecturers.id_lecturer AND students.npm=courses.npm AND courses.npm = '$npm'";
+              $results = mysqli_query($link, $sql);
+              while($row = mysqli_fetch_array($results))
+              {
+                echo "
+                <tbody>
+                <tr>
+                <td scop>$no.</td>
+                <td>$row[id_class]</td>
+                <td>$row[nama_class]</td>
+                <td>$row[sks_class]</td>
+                <td>$row[waktu_class]</td>
+                <td>$row[nama_lecturer]</td>
+                <td>$row[nama_lecturer]</td>
+                </tr>
+                </tbody>
+                ";  
+                $no++;
+             }
+             ?>
+             <!-- <tbody>
                  <tr>
                  <td scope="row">1.</td>
                   <td>SI9110</td>
@@ -126,7 +191,7 @@
                  <td>4</td>
                  <td>12</td>
                  </tr>
-             </tbody>
+             </tbody> -->
           </table>
         </div>
       </div>

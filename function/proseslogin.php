@@ -16,7 +16,11 @@ if($ceklogin>0){
 		$sks = $row['sks'];
 		$tahun_masuk = $row['tahun_masuk'];
 		$npm = $row['npm'];
+		$alamat = $row['alamat'];
+		$nama = $row['nama'];
 	}
+	$_SESSION['nama'] = $nama;
+	$_SESSION['alamat'] = $alamat;
 	$_SESSION['id_major'] = $id_major;
 	$_SESSION['npm'] = $npm;
 	$_SESSION['id_lecturer'] = $id_lecturer;
