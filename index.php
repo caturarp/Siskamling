@@ -63,14 +63,14 @@ else {
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid justify-content-around" style="font-family: 'Poppins', sans-serif">
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.php">
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
                   <a class="nav-link active mx-4"  aria-current="page" href="index.php">Beranda</a>
                   <a class="nav-link mx-2" href="course.php">Kelas</a>
                   <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
-                  <a href="lapor.html">
+                  <a href="lapor.php">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
                   </a>
                 </div>
@@ -84,7 +84,7 @@ else {
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Profil</a></li>
+                      <li><a class="dropdown-item" href="profil.php">Profil</a></li>
                       <li><a class="dropdown-item" href="function/logout.php">keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>

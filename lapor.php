@@ -1,58 +1,35 @@
 <?php
 include ('function/config.php');
+session_start();
+if (!isset($_SESSION['status']))
+{
+  header("location: function/proseslogin.php");
+  exit;
+}
 if(isset($_POST['btnlapor']))
 {
-	$id_pendaftar = $_SESSION['id_pendaftar'];
-	$nomorun = $_POST['tnoun'];
-	$tahunlulus = $_POST['tlulus'];
-	$namalengkap = $_POST['tnama'];
-	$usia = $_POST['tusia'];
-	$tempatlahir = $_POST['ttmptlahir'];
-	$tanggallahir = date('Y-m-d',strtotime($_POST['ttgllahir']));
-	$jeniskelamin = $_POST['jeniskelamin'];
-	$alamat = $_POST['talamat'];
-	$asalsekolah = $_POST['tasalsekolah'];
-	$nomorhp = $_POST['tnohp'];
-	$namaortuwali = $_POST['tnamaortuwali'];
-	$pekerjaan = $_POST['tpekerjaan'];
-	$alamatortu = $_POST['talamatortu'];
-	$nomorhportu = $_POST['tnohportu'];
-	$jurusan = $_POST['tjurusan'];
+	$jenis_report = $_POST['jenis_report'];
+	$isi_report = $_POST['isi_report'];
+	$cp_report = $_POST['cp_report'];
 
-	$simpan = mysqli_query($koneksi, "INSERT INTO formulir (id_pendaftar, no_peserta_ujian_nasional, tahun_kelulusan, nama_lengkap, usia, tempat_lahir, tanggal_lahir, jenis_kelamin, alamat_rumah, asal_sekolah, no_hp, nama_orang_tua_wali, pekerjaan, alamat_rumah_ortu, no_hp_ortu, jurusan)VALUES ('$id_pendaftar','$nomorun', '$tahunlulus', '$namalengkap', '$usia', '$tempatlahir', '$tanggallahir', '$jeniskelamin', '$alamat', '$asalsekolah', '$nomorhp', '$namaortuwali', '$pekerjaan', '$alamatortu', '$nomorhportu', '$jurusan')");
+	$report = mysqli_query($link, "INSERT INTO reports (jenis_report, isi_report, cp_report) VALUES ('$jenis_report', '$isi_report', '$cp_report')");
 
-	if($simpan)//jika simpan berhasil
+	if($report)//jika simpan berhasil
 	{
-
-		session_start();
-		$_SESSION['id_pendaftar'] = $id_pendaftar;
-		$_SESSION['nomorun'] = $nomorun;
-		$_SESSION['tahunlulus'] = $tahunlulus;
-		$_SESSION['namalengkap'] = $namalengkap;
-		$_SESSION['usia'] = $usia;
-		$_SESSION['tempatlahir'] = $tempatlahir;
-		$_SESSION['tanggallahir'] = $tanggallahir;
-		$_SESSION['jeniskelamin'] = $jeniskelamin;
-		$_SESSION['alamat'] = $alamat;
-		$_SESSION['asalsekolah'] = $asalsekolah;
-		$_SESSION['nomorhp'] = $nomorhp;
-		$_SESSION['namaortuwali'] = $namaortuwali;
-		$_SESSION['pekerjaan'] = $pekerjaan;
-		$_SESSION['alamatortu'] = $alamatortu;
-		$_SESSION['nomorhportu'] = $nomorhportu;
-		$_SESSION['jurusan'] = $jurusan;
-
-
-		echo "<script>
-			alert('Data Berhasil Disimpan!');
+    $get_idreport =mysqli_query($link, "SELECT id_report FROM reports WHERE jenis_report='$jenis_report' AND isi_report ='$isi_report' AND cp_report = '$cp_report'");
+		$row = mysqli_fetch_array($get_idreport);
+    $id_report = $row['id_report'];
+    $_SESSION['id_report'] = $id_report;
+    echo "<script>
+			alert('Laporan Berhasil Terkirim! Kode Ajuan Laporan Perlindunganmu adalah '$id_report'<br> Untuk Keamanan, Identitasmu Akan Dirahasiakan');
 			document.location= 'formulirtersimpan.php';
 			</script>";
 	}
 	else
 	{
 		echo "<script>
-			alert('Data Gagal Disimpan!');
-			document.location= 'formulir.php';
+			alert('Laporan Gagal');
+			document.location= 'lapor.php';
 			</script>";
 	}
 	// echo $id_pendaftar."<br>".$nomorun."<br>".$tahunlulus."<br>".$namalengkap."<br>".$usia."<br>".$tempatlahir."<br>".$tanggallahir."<br>".$jeniskelamin."<br>".$alamat."<br>".$asalsekolah."<br>".$nomorhp."<br>".$namaortuwali."<br>".$pekerjaan."<br>".$alamatortu."<br>".$nomorhportu."<br>".$jurusan;
@@ -83,13 +60,13 @@ if(isset($_POST['btnlapor']))
                 <span class="navbar-toggler-icon"></span>
               </button> -->
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.php">
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
-                  <a class="nav-link mx-4" href="homePage.html">Beranda</a>
-                  <a class="nav-link mx-2" href="kelas.html">Kelas</a>
-                  <a class="nav-link mx-3" href="transkrip.html">Transkrip</a>
+                  <a class="nav-link mx-4" href="index.php">Beranda</a>
+                  <a class="nav-link mx-2" href="course.php">Kelas</a>
+                  <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
                   <a href="lapor.html">
                   <button type="button" class="btn btn-outline-danger px-4">Lapor</button>
                   </a>
@@ -103,7 +80,7 @@ if(isset($_POST['btnlapor']))
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Profil</a></li>
+                      <li><a class="dropdown-item" href="profil.php">Profil</a></li>
                       <li><a class="dropdown-item" href="#">Keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -117,46 +94,41 @@ if(isset($_POST['btnlapor']))
           </nav>
         </div>
 
-       <div class="container">  
+      <div class="container">  
         <div class="d-flex row mt-sm-5">
-            <div class="container-fluid justify-content-around" style="font-family: 'Poppins', sans-serif">
+          <div class="container-fluid justify-content-around" style="font-family: 'Poppins', sans-serif">
             <div class="col-sm-7 mx-5">
                 <h3 style="color: #36a5ae;">Halaman Laporan</h3>
                 <p>Laporkan bentuk ketidakadilan yang kamu rasakan disini.</p>
-                    <div class="row">
-                     <div class="col-sm-7">
-                         <div class="mb-3">
-                         <span style="color:#36a5ae;" >Jenis Laporan</span>
-                         <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <div class="row">
+                  <form method="post" action="" class="col-sm-7">
+                    <div class="form-group mb-3">
+                          <span style="color:#36a5ae;" >Jenis Laporan</span>
+                          <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="jenis_report">
                             <option selected></option>
                             <option value="1">Kekerasan</option>
                             <option value="2">Pelecehan</option>
                             <option value="3">Selain yang disebutkan</option>
-                         </select>
-                         </div>
-                         <div class="mb-3">
-                            <label for="kronologi" class="form-label" style="color: #36a5ae">Deskripsi Kejadian</label>
-                            <textarea class="form-control" id="kronologi" rows="8"></textarea>
-                            <p style="font-size: x-small;">Deskripsikan kronologi dengan baik dan lengkap</p>
-                         </div>
-                             <div class="mb-3">
-                             <label for="Kontak" class="form-label" style="color: #36a5ae">Kontak</label>
-                             <input type="text" class="form-control" id="Kontak">
-                             <p style="font-size: x-small;">Isikan dengan No. Handphone yang dapat dihubungi</p>
-                             </div>
-                             <div class="d-grid mx-auto">
-                             <button class="btn btn-danger " type="submit" name="btnlapor">Laporkan</button>
-                             </div>
-                         </div>
-                            
-                     </div>
-                     <div class="col-sm-5"></div>
+                          </select>
                     </div>
+                    <div class="form group mb-3">
+                          <label for="isi_report" class="form-label" style="color: #36a5ae">Deskripsi Kejadian</label>
+                          <textarea class="form-control" name="isi_report" rows="8"></textarea>
+                          <p style="font-size: x-small;">Deskripsikan kronologi dengan baik dan lengkap</p>
+                    </div>
+                    <div class="form group mb-3">
+                          <label for="cp_report" class="form-label" style="color: #36a5ae">Kontak</label>
+                          <input type="text" class="form-control" name="cp_report">
+                          <p style="font-size: x-small;">Isikan dengan No. Handphone yang dapat dihubungi</p>
+                    </div>
+                    <div class="d-grid mx-auto">
+                          <button class="btn btn-danger " type="submit" name="btnlapor">Laporkan</button>
+                    </div>
+                  </form>
+                </div>
             </div>
-            <div class="col-sm-5 mx-5">
-              <!-- <img class="img-fluid" src="/assets/lapor.svg"> --> 
-            </div>
+          </div>
         </div>
-       </div>
+      </div>
 </body>
 </html>

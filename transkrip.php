@@ -43,15 +43,16 @@ $alamat = $_SESSION['alamat'];
                 <span class="navbar-toggler-icon"></span>
               </button> -->
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.php">
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
                   <a class="nav-link mx-4" href="index.php">Beranda</a>
                   <a class="nav-link mx-2" href="course.php">Kelas</a>
                   <a class="nav-link active mx-3" aria-current="page" href="#">Transkrip</a>
+                  <a href="lapor.php">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
-                  
+                  </a>
                 </div>
                 
               </div>
@@ -63,7 +64,7 @@ $alamat = $_SESSION['alamat'];
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Profil</a></li>
+                      <li><a class="dropdown-item" href="profil.php">Profil</a></li>
                       <li><a class="dropdown-item" href="function/logout.php">Keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -91,12 +92,9 @@ $alamat = $_SESSION['alamat'];
 
               <div class="col-sm-5">
                <p style="font-size: x-large; font-weight: bold;">Transkrip Sementara</p>
-                
-              <!-- <p> Npm : echo$npm </p>
-              <p> Nama : Asri Kinanti Febriany</p>
-              <p> Alamat : Gayungan</p>  -->
+        
+        <!-- open php tag for getting user detail -->
               <?php
-
               $npm =$_SESSION['npm'];
               $fnama = $_SESSION['$fnama'];
               $nama = $_SESSION['nama'];
@@ -105,15 +103,6 @@ $alamat = $_SESSION['alamat'];
               echo "NPM : $npm <br>";
               echo "Nama : $nama <br>"; 
               echo "Alamat : $alamat";
-              // echo "Nama : ;
-              // echo "Alamat : "+$alamat;
-
-              // $html =
-              //   '<html><body>'.
-              //   '<br>NPM: '.$npm.
-              //   '<br>NAMA: '.$nama.
-              //   '<br>ALAMAT: '.$alamat.
-              //   '</body></html>';
               ?>
                
               </div>
@@ -176,37 +165,6 @@ $alamat = $_SESSION['alamat'];
                 $no++;
              }
              ?>
-             <!-- <tbody>
-                 <tr>
-                 <td scope="row">1.</td>
-                  <td>SI9110</td>
-                 <td>Pemrograman Web</td>
-                 <td>3</td>
-                 <td>A</td>
-                 <td>4</td>
-                 <td>12</td>
-                 </tr>
-    
-                 <tr>
-                 <td scope="row">2.</td>
-                 <td>SI9110</td>
-                 <td>Analisis Basis Data</td>
-                 <td>3</td>
-                 <td>A</td>
-                 <td>4</td>
-                 <td>12</td>
-                 </tr>
-    
-                 <tr>
-                 <td scope="row">3.</td>
-                 <td>SI9110</td>
-                 <td>Analisis Desain Terstruktur</td>
-                 <td>3</td>
-                 <td>A</td>
-                 <td>4</td>
-                 <td>12</td>
-                 </tr>
-             </tbody> -->
           </table>
         </div>
       </div>

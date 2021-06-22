@@ -33,14 +33,14 @@ $fnama = $_SESSION['$fnama'];
                 <span class="navbar-toggler-icon"></span>
               </button> -->
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.php">
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
                   <a class="nav-link mx-4" href="index.php">Beranda</a>
                   <a class="nav-link active mx-2" aria-current="page" href="#">Kelas</a>
                   <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
-                  <a href="lapor.html">
+                  <a href="lapor.php">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
                   </a>
                 </div>
@@ -54,7 +54,7 @@ $fnama = $_SESSION['$fnama'];
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Profil</a></li>
+                      <li><a class="dropdown-item" href="profil.php">Profil</a></li>
                       <li><a class="dropdown-item" href="function/logout.php">keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
