@@ -67,7 +67,7 @@ else {
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
-                  <a class="nav-link active mx-4"  aria-current="page" href="homePage.html">Beranda</a>
+                  <a class="nav-link active mx-4"  aria-current="page" href="index.php">Beranda</a>
                   <a class="nav-link mx-2" href="course.php">Kelas</a>
                   <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
                   <a href="lapor.html">
@@ -139,7 +139,7 @@ else {
                                         echo "<td>" . $row['nama_class'] . "</td>";
                                         echo "<td>" . $row['nama_lecturer'] . "</td>";
                                         echo "<td>";
-                                            echo '<a href="function/update.php?id_class='. $row['id_class'] .'" class="btn btn-primary mr-3" title="Hadiri Kelas" style ="background-color:#36A5AE" data-toggle="tooltip">Hadiri Kelas<span class="fa fa-pencil"></span></a>';
+                                            echo '<a href="function/update.php?id_class='. $row['id_class'] .'" class="btn btn-primary mr-3" title="Hadiri Kelas" style ="background-color:#36A5AE" data-toggle="tooltip" on-click="disabled">Hadiri Kelas<span class="fa fa-pencil"></span></a>';
                                         echo "</td>";
                                     echo "</tr>";
                                 }

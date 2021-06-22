@@ -12,6 +12,14 @@ $fnama = $_SESSION['$fnama'];
 $nama = $_SESSION['nama'];
 $alamat = $_SESSION['alamat'];
 
+// php have an exclusive error for me :)
+// $img = $_SESSION['$img'];
+// $img_path = "assets/".$img;
+// $src_img = "$img_path";
+// var_dump($img);
+// var_dump($src_img);
+// var_dump($img_path);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +63,8 @@ $alamat = $_SESSION['alamat'];
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Profil</a></li>
+                      <li><a class="dropdown-item" href="function/logout.php">Keluar</a></li>
                       <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
@@ -76,6 +84,7 @@ $alamat = $_SESSION['alamat'];
               <div class="row">
               <div class="col-sm-2">
                <div class="profil">
+                  <!-- <img src="<?php $src_img?>" class="img-fluid" alt=""> -->
                   <img src="assets/catur.jpg" class="img-fluid" alt="">
                </div>
                </div>
@@ -138,13 +147,19 @@ $alamat = $_SESSION['alamat'];
               $no = 1;
 
               // query attempt
-              $sql ="SELECT students.npm, classes.waktu_class, classes.nama_class, classes.presensi, classes.sks_class, lecturers.nama_lecturer, classes.id_class 
-              FROM classes,courses,students,lecturers 
+              $sql ="SELECT classes.waktu_class, classes.nama_class, classes.kredit_class, classes.presensi, classes.sks_class, classes.id_class, classes.nilai_class 
+              FROM classes,courses,students
               WHERE courses.id_class=classes.id_class 
-              AND classes.id_lecturer=lecturers.id_lecturer AND students.npm=courses.npm AND courses.npm = '$npm'";
+              AND students.npm=courses.npm AND courses.npm = '$npm'";
+
+              
+
               $results = mysqli_query($link, $sql);
-              while($row = mysqli_fetch_array($results))
-              {
+              // $sks_class = $row[sks_class];
+              // $kredit_class = $row[kredit_class];
+              // $nilaixkredit = $sks_class * $kredit_class;
+
+              while($row = mysqli_fetch_array($results)){
                 echo "
                 <tbody>
                 <tr>
@@ -152,9 +167,9 @@ $alamat = $_SESSION['alamat'];
                 <td>$row[id_class]</td>
                 <td>$row[nama_class]</td>
                 <td>$row[sks_class]</td>
-                <td>$row[waktu_class]</td>
-                <td>$row[nama_lecturer]</td>
-                <td>$row[nama_lecturer]</td>
+                <td>$row[nilai_class]</td>
+                <td>$row[kredit_class]</td>
+                <td>$row[nilai_class]*$row[sks_class]</td>
                 </tr>
                 </tbody>
                 ";  

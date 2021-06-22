@@ -18,6 +18,7 @@ if($ceklogin>0){
 		$npm = $row['npm'];
 		$alamat = $row['alamat'];
 		$nama = $row['nama'];
+		$img = $row['img'];
 	}
 	$_SESSION['nama'] = $nama;
 	$_SESSION['alamat'] = $alamat;
@@ -26,6 +27,7 @@ if($ceklogin>0){
 	$_SESSION['id_lecturer'] = $id_lecturer;
 	$_SESSION['semester'] = $semester;
 	$_SESSION['tahun_masuk'] = $tahun_masuk;
+	$_SESSION['$img'] = $img;
 	$_SESSION['status'] = "login";
 	header("location:../index.php");
 }

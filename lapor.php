@@ -1,3 +1,65 @@
+<?php
+include ('function/config.php');
+if(isset($_POST['btnlapor']))
+{
+	$id_pendaftar = $_SESSION['id_pendaftar'];
+	$nomorun = $_POST['tnoun'];
+	$tahunlulus = $_POST['tlulus'];
+	$namalengkap = $_POST['tnama'];
+	$usia = $_POST['tusia'];
+	$tempatlahir = $_POST['ttmptlahir'];
+	$tanggallahir = date('Y-m-d',strtotime($_POST['ttgllahir']));
+	$jeniskelamin = $_POST['jeniskelamin'];
+	$alamat = $_POST['talamat'];
+	$asalsekolah = $_POST['tasalsekolah'];
+	$nomorhp = $_POST['tnohp'];
+	$namaortuwali = $_POST['tnamaortuwali'];
+	$pekerjaan = $_POST['tpekerjaan'];
+	$alamatortu = $_POST['talamatortu'];
+	$nomorhportu = $_POST['tnohportu'];
+	$jurusan = $_POST['tjurusan'];
+
+	$simpan = mysqli_query($koneksi, "INSERT INTO formulir (id_pendaftar, no_peserta_ujian_nasional, tahun_kelulusan, nama_lengkap, usia, tempat_lahir, tanggal_lahir, jenis_kelamin, alamat_rumah, asal_sekolah, no_hp, nama_orang_tua_wali, pekerjaan, alamat_rumah_ortu, no_hp_ortu, jurusan)VALUES ('$id_pendaftar','$nomorun', '$tahunlulus', '$namalengkap', '$usia', '$tempatlahir', '$tanggallahir', '$jeniskelamin', '$alamat', '$asalsekolah', '$nomorhp', '$namaortuwali', '$pekerjaan', '$alamatortu', '$nomorhportu', '$jurusan')");
+
+	if($simpan)//jika simpan berhasil
+	{
+
+		session_start();
+		$_SESSION['id_pendaftar'] = $id_pendaftar;
+		$_SESSION['nomorun'] = $nomorun;
+		$_SESSION['tahunlulus'] = $tahunlulus;
+		$_SESSION['namalengkap'] = $namalengkap;
+		$_SESSION['usia'] = $usia;
+		$_SESSION['tempatlahir'] = $tempatlahir;
+		$_SESSION['tanggallahir'] = $tanggallahir;
+		$_SESSION['jeniskelamin'] = $jeniskelamin;
+		$_SESSION['alamat'] = $alamat;
+		$_SESSION['asalsekolah'] = $asalsekolah;
+		$_SESSION['nomorhp'] = $nomorhp;
+		$_SESSION['namaortuwali'] = $namaortuwali;
+		$_SESSION['pekerjaan'] = $pekerjaan;
+		$_SESSION['alamatortu'] = $alamatortu;
+		$_SESSION['nomorhportu'] = $nomorhportu;
+		$_SESSION['jurusan'] = $jurusan;
+
+
+		echo "<script>
+			alert('Data Berhasil Disimpan!');
+			document.location= 'formulirtersimpan.php';
+			</script>";
+	}
+	else
+	{
+		echo "<script>
+			alert('Data Gagal Disimpan!');
+			document.location= 'formulir.php';
+			</script>";
+	}
+	// echo $id_pendaftar."<br>".$nomorun."<br>".$tahunlulus."<br>".$namalengkap."<br>".$usia."<br>".$tempatlahir."<br>".$tanggallahir."<br>".$jeniskelamin."<br>".$alamat."<br>".$asalsekolah."<br>".$nomorhp."<br>".$namaortuwali."<br>".$pekerjaan."<br>".$alamatortu."<br>".$nomorhportu."<br>".$jurusan;
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +145,7 @@
                              <p style="font-size: x-small;">Isikan dengan No. Handphone yang dapat dihubungi</p>
                              </div>
                              <div class="d-grid mx-auto">
-                             <button class="btn btn-danger " type="button">Laporkan</button>
+                             <button class="btn btn-danger " type="submit" name="btnlapor">Laporkan</button>
                              </div>
                          </div>
                             
