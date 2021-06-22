@@ -83,7 +83,6 @@ if(isset($_POST['btnlapor']))
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="profil.php">Profil</a></li>
                       <li><a class="dropdown-item" href="#">Keluar</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                   </li>
                 </ul>
