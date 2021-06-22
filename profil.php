@@ -1,3 +1,16 @@
+<?php
+include ('function/config.php');
+// include ('function/proseslogin.php');
+session_start();
+if (!isset($_SESSION['status']))
+ {
+	header("location: function/proseslogin.php");
+	exit;
+}
+$npm =$_SESSION['npm'];
+$fnama = $_SESSION['$fnama'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,9 +37,9 @@
                     <img src="assets/logoSiskamling.svg" alt="">
                   </a>
                 <div class="navbar-nav">
-                  <a class="nav-link mx-4" href="#">Beranda</a>
-                  <a class="nav-link mx-2" href="#">Kelas</a>
-                  <a class="nav-link mx-3" href="#">Transkrip</a>
+                  <a class="nav-link mx-4" href="index.php">Beranda</a>
+                  <a class="nav-link mx-2" href="course.php">Kelas</a>
+                  <a class="nav-link mx-3" href="transkrip.php">Transkrip</a>
                   <a href="lapor.php">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
                   </a>
@@ -35,13 +48,14 @@
               </div>
               <div class="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
+                <p class="mt-3">Halo, <?php echo $fnama ?></p>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="assets/iconProfile.svg" alt="">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="profil.php">Profil</a></li>
-                      <li><a class="dropdown-item" href="#">Keluar</a></li>
+                      <li><a class="dropdown-item" href="logout.php">Keluar</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -67,8 +81,6 @@
               <div class="col-sm-5">
               <?php
               include 'function/config.php';
-              session_start();
-              $npm = $_SESSION['npm'];
               $database = mysqli_query($link, "SELECT students.nama, students.alamat, students.ipk, lecturers.nama_lecturer FROM students, lecturers WHERE students.id_lecturer = lecturers.id_lecturer AND students.npm = '$npm'");
               while($row = mysqli_fetch_array($database))
               {

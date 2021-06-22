@@ -129,7 +129,7 @@ else {
                     FROM classes,courses,students,lecturers 
                     WHERE courses.id_class=classes.id_class 
                     AND classes.id_lecturer=lecturers.id_lecturer AND students.npm=courses.npm AND courses.npm = '$npm' AND classes.waktu_class='$hari'";
-                    echo var_dump($npm);
+                    // echo var_dump($npm);
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
                                 while($row = mysqli_fetch_array($result)){
@@ -158,5 +158,8 @@ else {
                     // Close connection
                     mysqli_close($link);
                     ?>
+                    <p class="mt-5" style="font-size: x-large; font-weight: bold;">Periksa Kehadiran Kelas</p> 
+                    <a href="presensi.php">
+                    <div class="btn btn-primary px-4 py-2" style ="background-color:#36A5AE">Periksa</div></a>
 </body>
 </html>

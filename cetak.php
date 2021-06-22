@@ -11,8 +11,10 @@ FROM classes,courses,students
 WHERE courses.id_class=classes.id_class 
 AND students.npm=courses.npm AND courses.npm = $npm";
 
-              
-
+$html=
+'<html><body>'.
+	'<center>Transkrip Sementara</center>';
+	// '<br>No. Peserta Ujian Nasional:'. row['id_class'];
 $results = mysqli_query($link, $sql);
 $row = mysqli_fetch_array($results);
 $no = 1;
@@ -66,6 +68,7 @@ table {
     </tr>
 </thead>" . implode("",$data_arr) . "</table>";
 
+$mpdf->WriteHTML($html);
 $mpdf->WriteHTML($table);
 $mpdf->Output();
 ?>

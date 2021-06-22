@@ -1,5 +1,5 @@
 <?php
-include 'function/config.php';
+include ('function/config.php');
 session_start();
 if (!isset($_SESSION['status']))
 {
@@ -121,6 +121,9 @@ $fnama = $_SESSION['$fnama'];
              ?>
           </table>
         </div>
+        <p class="mt-5" style="font-size: x-large; font-weight: bold;">Dapatkan Jadwal Kuliahmu</p> 
+                    <a href="unduhjadwal.php">
+                    <div class="btn btn-primary px-4 py-2" style ="background-color:#36A5AE">Unduh</div></a>
       </div>
 
   </body>
