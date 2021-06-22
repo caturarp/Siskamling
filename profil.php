@@ -27,8 +27,9 @@
                   <a class="nav-link mx-4" href="#">Beranda</a>
                   <a class="nav-link mx-2" href="#">Kelas</a>
                   <a class="nav-link mx-3" href="#">Transkrip</a>
+                  <a href="lapor.php">
                   <button type="button" class="btn btn-danger px-4">Lapor</button>
-                  
+                  </a>
                 </div>
                 
               </div>
@@ -68,14 +69,15 @@
               include 'function/config.php';
               session_start();
               $npm = $_SESSION['npm'];
-              $database = mysqli_query($link, "SELECT * FROM students where npm = '$npm'");
+              $database = mysqli_query($link, "SELECT students.nama, students.alamat, students.ipk, lecturers.nama_lecturer FROM students, lecturers WHERE students.id_lecturer = lecturers.id_lecturer AND students.npm = '$npm'");
               while($row = mysqli_fetch_array($database))
               {
               echo " 
                <p>$row[nama]</p>
-               <p> Npm : $row[npm] </p>
+               <p> Npm : $npm </p>
                <p> Alamat : $row[alamat]</p>
                <p> Nilai IPK : $row[ipk]</p> 
+               <p> Dosen Wali : $row[nama_lecturer]</p>
               ";
               } 
               ?>

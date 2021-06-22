@@ -17,12 +17,13 @@ if(isset($_POST['btnlapor']))
 	if($report)//jika simpan berhasil
 	{
     $get_idreport =mysqli_query($link, "SELECT id_report FROM reports WHERE jenis_report='$jenis_report' AND isi_report ='$isi_report' AND cp_report = '$cp_report'");
-		$row = mysqli_fetch_array($get_idreport);
-    $id_report = $row['id_report'];
+		while($row = mysqli_fetch_array($get_idreport)){
+      $id_report = $row['id_report'];
+    };
     $_SESSION['id_report'] = $id_report;
     echo "<script>
-			alert('Laporan Berhasil Terkirim! Kode Ajuan Laporan Perlindunganmu adalah '$id_report'<br> Untuk Keamanan, Identitasmu Akan Dirahasiakan');
-			document.location= 'formulirtersimpan.php';
+			alert('Laporan Berhasil Terkirim! Kode Ajuan Laporan Perlindunganmu adalah $id_report. Untuk Keamanan, Identitasmu Akan Dirahasiakan');
+			document.location= 'laporsuccess.php';
 			</script>";
 	}
 	else
