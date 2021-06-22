@@ -111,7 +111,9 @@ $alamat = $_SESSION['alamat'];
               
             <div class="col-sm-5 align-self-end pb-3">
               <div class="d-flex justify-content-end">  
+              <a href="cetak.php" target="_blank">
               <button type="button" class="btn btn-success">Unduh Transkrip</button> 
+              </a>
               </div> 
            </div>
         </div>
