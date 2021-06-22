@@ -5,11 +5,25 @@ require_once "config.php";
 // Define variables and initialize with empty values
 // $name = $address = $salary = "";
 // $name_err = $address_err = $salary_err = "";
-$prensensi = "";
-$prensensi_err = "";
+// $prensensi = "";
+// $prensensi_err = "";
 $presensi =$_SESSION['presensi'];
 $id_class =$_SESSION['id_class'];
 $npm =$_SESSION['npm'];
+// buangan update
+<div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mt-5 mb-3 clearfix">
+                        <h2 class="pull-left">Jadwal</h2>
+                        <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
+                    </div>
+                    
+                </div>
+            </div>        
+        </div>
+    </div>
 
 // Processing form data when form is submitted
 if(isset($_POST["npm"]) && !empty($_POST["npm"])){
@@ -47,12 +61,12 @@ if(isset($_POST["npm"]) && !empty($_POST["npm"])){
     // Check input errors before inserting in database
     if(empty($presensi_err)){
         // Prepare an update statement
-        $sql = "UPDATE classes SET presensi= presensi + 1 WHERE id_class=?";
-        $sql = "UPDATE classes
-            INNER JOIN
-            id_classes ON classes.id_class = courses.id_class 
-            SET 
-            presensi = presensi + 1";
+        $sql = "UPDATE classes, students SET presensi= presensi + 1 WHERE classes.id_class='$id_class' AND students.npm ='$npm'";
+        // $sql = "UPDATE classes
+        //     INNER JOIN
+        //     id_classes ON classes.id_class = courses.id_class 
+        //     SET 
+        //     presensi = presensi + 1";
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters

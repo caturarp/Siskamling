@@ -1,3 +1,14 @@
+<?php
+include 'function/config.php';
+session_start();
+if (!isset($_SESSION['status']))
+{
+  header("location: function/proseslogin.php");
+  exit;
+}
+// getting data 'npm' from session
+$npm =$_SESSION['npm'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +44,9 @@
                 </div>
                 
               </div>
-              <div class="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav">
+              <div class="collapse navbar-collapse container-fluid-nav text-center  justify-content-end" id="navbarNavDarkDropdown">  
+              <ul class="navbar-nav">
+                  <p>Halo</p>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <img src="assets/iconProfile.svg" alt="">
@@ -67,9 +79,7 @@
           </div>  
         </div>
     </div>
-      
-    
-           <!--tabel-->
+    <!--tabel-->
     <div class="container mt-sm-3">
       <div class="container-fluid justify-content-around" style="font-family: 'Poppins', sans-serif">
             <table class="table table-bordered">
@@ -82,26 +92,29 @@
                     <th scope="col">Dosen pengampu</th>
                  </tr>
              </thead>
-             
-             <?php
-             include 'function/config.php';
-             $no = 1;
-             $classes = mysqli_query($link, "select * from classes 
-             JOIN lecturers ON classes.id_lecturer = lecturers.id_lecturer");
-             while($row = mysqli_fetch_array($classes))
-             {
-              echo "
-              <tbody>
-              <tr>
-              <td scop>$no.</td>
-              <td>$row[id_class]</td>
-              <td>$row[waktu_class]</td>
-              <td>$row[nama_class]</td>
-              <td>$row[nama_lecturer]</td>
-              </tr>
-              </tbody>
-              ";  
-              $no++;
+            <?php
+              $no = 1;
+
+              // query attempt
+              $sql ="SELECT students.npm, classes.waktu_class, classes.nama_class, classes.presensi, lecturers.nama_lecturer, classes.id_class 
+              FROM classes,courses,students,lecturers 
+              WHERE courses.id_class=classes.id_class 
+              AND classes.id_lecturer=lecturers.id_lecturer AND students.npm=courses.npm AND courses.npm = '$npm'";
+              $results = mysqli_query($link, $sql);
+              while($row = mysqli_fetch_array($results))
+              {
+                echo "
+                <tbody>
+                <tr>
+                <td scop>$no.</td>
+                <td>$row[id_class]</td>
+                <td>$row[waktu_class]</td>
+                <td>$row[nama_class]</td>
+                <td>$row[nama_lecturer]</td>
+                </tr>
+                </tbody>
+                ";  
+                $no++;
              }
              ?>
           </table>
