@@ -85,7 +85,7 @@ $fnama = $_SESSION['$fnama'];
     <div class="container mt-sm-3">
       <div class="container-fluid justify-content-around" style="font-family: 'Poppins', sans-serif">
             <table class="table table-bordered">
-              <thead class="table-dark">
+              <thead class="table" style="background-color:#36A5AE; color:#F3F3F3">
                  <tr>
                     <th scope="col">No</th>
                     <th scope="col">Kode Kelas</th>
